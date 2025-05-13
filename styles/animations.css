@@ -1,0 +1,243 @@
+/* --- animations.css --- */
+/* 动画效果相关样式 */
+
+/* 页面加载动画 */
+@keyframes fadeInPage {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 导航项目的初始化动画 */
+@keyframes fadeInNav {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 导航指示器动画 */
+@keyframes navIndicator {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+/* 水平导航指示器动画 */
+@keyframes navIndicatorHorizontal {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* 卡片淡入动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 卡片内容淡入动画 */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 卡片淡出动画 */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+    }
+}
+
+/* 卡片淡入动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+
+/* 平滑淡入动画 */
+@keyframes smoothFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+        visibility: hidden;
+    }
+    10% {
+        visibility: visible;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+        visibility: visible;
+    }
+}
+
+/* 卡片流光效果动画 */
+@keyframes shimmer {
+    0% {
+        left: -150%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
+}
+
+/* 导航项动画应用 */
+.sidebar .nav-item {
+    opacity: 0;
+    animation: fadeInNav 0.5s ease-out forwards;
+}
+
+.sidebar .nav-item:nth-child(1) { animation-delay: 0.3s; }
+.sidebar .nav-item:nth-child(2) { animation-delay: 0.35s; }
+.sidebar .nav-item:nth-child(3) { animation-delay: 0.4s; }
+.sidebar .nav-item:nth-child(4) { animation-delay: 0.45s; }
+.sidebar .nav-item:nth-child(5) { animation-delay: 0.5s; }
+.sidebar .nav-item:nth-child(6) { animation-delay: 0.55s; }
+.sidebar .nav-item:nth-child(7) { animation-delay: 0.6s; }
+.sidebar .nav-item:nth-child(8) { animation-delay: 0.65s; }
+.sidebar .nav-item:nth-child(9) { animation-delay: 0.7s; }
+.sidebar .nav-item:nth-child(10) { animation-delay: 0.75s; }
+.sidebar .nav-item:nth-child(11) { animation-delay: 0.8s; }
+
+/* 卡片组动画应用 */
+.card-group.active {
+    opacity: 1;
+    transform: translateY(0);
+    position: relative;
+    visibility: visible;
+    animation: smoothFadeIn 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.card-group.fade-out {
+    animation: fadeOut 0.4s ease-out forwards;
+}
+
+/* 卡片组内卡片的延迟动画 */
+.card-group.active .business-group {
+    animation: fadeInUp 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+    opacity: 0; /* 初始设为不可见 */
+}
+
+.card-group.active .business-group:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.card-group.active .business-group:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.card-group.active .business-group:nth-child(3) {
+    animation-delay: 0.25s;
+}
+
+.card-group.active .business-group:nth-child(4) {
+    animation-delay: 0.35s;
+}
+
+.card-group.active .business-group:nth-child(5) {
+    animation-delay: 0.45s;
+}
+
+/* 卡片内元素的动画 */
+.card-group.active .card {
+    animation: fadeInRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: 0.1s; /* 基础延迟 */
+}
+
+/* 调整每个卡片的动画延迟，创造瀑布效果 */
+.card-group.active .business-group:nth-child(1) .card-link:nth-child(1) .card {
+    animation-delay: 0.15s;
+}
+
+.card-group.active .business-group:nth-child(1) .card-link:nth-child(2) .card {
+    animation-delay: 0.2s;
+}
+
+.card-group.active .business-group:nth-child(1) .card-link:nth-child(3) .card {
+    animation-delay: 0.25s;
+}
+
+.card-group.active .business-group:nth-child(2) .card-link:nth-child(1) .card {
+    animation-delay: 0.25s;
+}
+
+.card-group.active .business-group:nth-child(2) .card-link:nth-child(2) .card {
+    animation-delay: 0.3s;
+}
+
+.card-group.active .business-group:nth-child(2) .card-link:nth-child(3) .card {
+    animation-delay: 0.35s;
+}
+
+/* 确保搜索场景下的动画效果不受干扰 */
+.card-group.search-results.active .business-group,
+.card-group.search-results.active .card {
+    animation-delay: 0.1s !important;
+}
+
+/* 背景动画脉动效果 - 调整为更加微妙的效果，不影响背景颜色 */
+@keyframes backgroundPulse {
+    0% {
+        opacity: 0.35;
+        filter: none;
+    }
+    50% {
+        opacity: 0.4;
+        filter: none;
+    }
+    100% {
+        opacity: 0.35;
+        filter: none;
+    }
+}
+
+/* 应用背景脉动动画 */
+#background-animation {
+    animation: backgroundPulse 10s ease-in-out infinite;
+} 
