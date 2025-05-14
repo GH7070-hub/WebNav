@@ -1,0 +1,129 @@
+/* --- base.css --- */
+/* 基础样式和变量定义 */
+
+:root {
+    /* 更新配色方案 - 以#F68A4E为主色调 */
+    --primary-color: #F68A4E;         /* 主色调：温暖的橙色 */
+    --primary-color-dark: #E57A3E;    /* 深色变体 */
+    --primary-color-light: #FFF5F0;   /* 浅色变体 */
+    
+    --secondary-color: #FFB347;       /* 次要色调：浅橙色 */
+    --accent-color: #FF6B6B;          /* 强调色：珊瑚红 */
+    
+    --text-color-dark: #2D3436;       /* 主要文字颜色 */
+    --text-color-medium: #636E72;     /* 次要文字颜色 */
+    --text-color-light: #FFFFFF;      /* 浅色文字 */
+    
+    --bg-body: #D0CECE;               /* 页面背景色：浅灰色 */
+    --bg-container: #FFFFFF;          /* 容器背景色 */
+    --bg-header: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%); /* 渐变头部背景 */
+    
+    --border-color-light: rgba(246, 138, 78, 0.08);    /* 浅色边框 */
+    --border-color-medium: rgba(246, 138, 78, 0.15);   /* 中等边框 */
+    
+    --shadow-sm: 0 2px 4px rgba(246, 138, 78, 0.03);  /* 小阴影 */
+    --shadow-md: 0 4px 6px rgba(246, 138, 78, 0.05);  /* 中等阴影 */
+    --shadow-lg: 0 8px 12px rgba(246, 138, 78, 0.08); /* 大阴影 */
+    
+    /* 圆角 */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    
+    /* 间距 */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Typography */
+    --font-family-base: 'Noto Sans SC', 'Inter', 'Helvetica Neue', 'Helvetica', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+
+    /* 颜色变量 */
+    --primary-color: #f68a4e;
+    --primary-color-light: #ffa978;
+    --primary-color-dark: #e67e46;
+    --secondary-color: #4e9af6;
+    --accent-color: #6c63ff;
+    --danger-color: #dc3545;
+    --text-color: #333333;
+    --text-color-light: #666666;
+    --background-color: #D0CECE;
+    --card-background: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--bg-body); /* 使用浅灰色背景 */
+    /* 注释掉背景图片及相关设置 */
+    /* background-image: url("../images/back.png"); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed; */
+    color: var(--text-color-dark);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 0; /* 初始不可见 */
+    animation: fadeInPage 0.6s ease-out forwards;
+    animation-delay: 0.1s;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 确保body作为背景元素的定位参考 */
+}
+
+body.page-loaded .content {
+    transition: min-height 0.5s ease-out;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+    padding-top: 0;
+    gap: 0;
+}
+
+.content {
+    flex: 1;
+    padding: 0 var(--spacing-xl) var(--spacing-xl);
+    display: block;
+    position: relative;
+    min-height: 500px;
+}
+
+/* 响应式设计 - 平板设备 */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+        padding-top: 0;
+    }
+    
+    .content {
+        padding: 0 var(--spacing-md) var(--spacing-md);
+    }
+}
+
+/* 背景动画相关样式 */
+#background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* 与JS中保持一致 */
+    opacity: 0.4; /* 与JS中保持一致 */
+    pointer-events: none;
+    filter: none; /* 移除滤镜效果 */
+} 
