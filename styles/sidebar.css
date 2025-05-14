@@ -1,324 +1,157 @@
-/* --- sidebar.css --- */
-/* 侧边导航栏相关样式 */
-
+/* 侧边栏样式 */
 .sidebar {
-    width: 280px;
-    background-color: transparent;
-    padding: var(--spacing-md) 0;
-    box-shadow: none;
-    border-radius: 0;
-    margin: 0 0 var(--spacing-md) var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    height: calc(100vh - 80px); /* 减去header高度 */
-    overflow-y: auto; /* 允许垂直滚动 */
-    overflow-x: hidden; /* 禁止水平滚动 */
-    position: sticky;
-    top: 0;
-    transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
-    border: none;
-    border-top: 1px solid rgba(246, 138, 78, 0.2);
-    background: transparent;
-    /* 隐藏滚动条但允许滚动 */
-    scrollbar-width: thin;
-    scrollbar-color: var(--primary-color-light) transparent;
+    width: 200px;
+    background-color: white;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+    padding: 20px 0;
+    overflow-y: auto;
+    flex-shrink: 0;
 }
 
-.sidebar:hover {
-    box-shadow: none;
-    transform: none;
-}
-
-/* 美化滚动条 */
-.sidebar::-webkit-scrollbar {
-    width: 4px;
-}
-
-.sidebar::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.sidebar::-webkit-scrollbar-thumb {
-    background-color: rgba(246, 138, 78, 0.1);
-    border-radius: 10px;
-    border: 2px solid transparent;
+/* 导航菜单样式 */
+.nav-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-item {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    border-radius: var(--radius-sm);
-    margin: 0.25rem var(--spacing-md);
-    user-select: none; /* 防止文本被选中 */
-    color: var(--text-color-medium);
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: block;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.nav-link:hover {
+    background-color: #f8f9fa;
+    border-left-color: #007bff;
+}
+
+.nav-link.active {
+    background-color: #e9ecef;
+    border-left-color: #007bff;
     font-weight: 500;
-    letter-spacing: 0.2px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* 文本左对齐 */
-    box-shadow: none;
-    text-align: left; /* 确保文本左对齐 */
 }
 
-.nav-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background: linear-gradient(to right, var(--primary-color-light), transparent);
-    opacity: 0.3;
-    transition: width 0.3s ease;
-    z-index: -1;
+/* 分组样式 */
+.group-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 20px;
 }
 
-.nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.7);
-    color: var(--primary-color-dark);
-    transform: translateX(6px);
-    box-shadow: none;
+.group-item {
+    margin: 5px 0;
 }
 
-.nav-item:hover::before {
-    width: 100%;
-}
-
-.nav-item:active {
-    transform: scale(0.98) translateX(6px);
-}
-
-.nav-item.active {
-    background-color: rgba(246, 138, 78, 0.15);
-    color: var(--primary-color-dark);
-    font-weight: 600;
-    box-shadow: none;
-    transform: translateX(8px);
-    letter-spacing: 0.3px;
-    position: relative;
-}
-
-/* 使用图标前缀增强视觉效果 */
-.nav-item::after {
-    content: '';
-    display: none; /* 隐藏图标 */
-    width: 0;
-    height: 0;
-    margin-right: 0;
-    opacity: 0;
-}
-
-.nav-item:hover::after {
-    opacity: 0;
-    transform: none;
-}
-
-.nav-item.active::after {
-    opacity: 0;
-    transform: none;
-    filter: none;
-}
-
-/* 为不同类型的导航项设置不同图标 - 已禁用 */
-.nav-item[data-type="company"]::after,
-.nav-item[data-type="department"]::after,
-.nav-item[data-type="7s"]::after,
-.nav-item[data-type="safety"]::after,
-.nav-item[data-type="quality"]::after,
-.nav-item[data-type="production"]::after,
-.nav-item[data-type="equipment"]::after,
-.nav-item[data-type="environment"]::after,
-.nav-item[data-type="energy"]::after,
-.nav-item[data-type="info"]::after,
-.nav-item[data-type="other"]::after {
-    background-image: none;
-}
-
-/* 活动项目的样式修改 */
-.nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: -6px;
-    top: 0;
-    height: 100%;
-    width: 6px;
-    background: var(--primary-color);
-    animation: navIndicator 0.3s ease forwards;
-    opacity: 0.7;
-}
-
-/* 移除装饰线 */
-.sidebar::before {
-    display: none;
-}
-
-/* 恢复原来的顶部装饰样式 */
-.sidebar::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 3px;
-    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-    border-radius: 0 var(--radius-md) 0 0;
-    opacity: 0.5;
-}
-
-/* 响应式设计 - 中等屏幕设备 */
-@media (max-width: 1200px) {
-    .sidebar {
-        width: 240px;
-    }
-}
-
-/* 响应式设计 - 平板设备 */
-@media (max-width: 992px) {
-    .sidebar {
-        width: 100%;
-        order: 0;
-        margin: 0 0 var(--spacing-md) 0;
-        border-radius: 0;
-        position: static;
-        max-height: none;
-        padding: var(--spacing-sm) 0 var(--spacing-md);
-        overflow-x: auto;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        overflow-y: hidden;
-        border-bottom: 1px solid var(--border-color-light);
-        border-right: none;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-    
-    .sidebar::-webkit-scrollbar {
-        display: none;
-    }
-    
-    .sidebar::before,
-    .sidebar::after {
-        display: none;
-    }
-    
-    .nav-item {
-        border-radius: var(--radius-md);
-        margin: 0.3rem 0.4rem;
-        padding: var(--spacing-sm) var(--spacing-md);
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-    
-    .nav-item.active {
-        transform: translateX(0) scale(1.05);
-    }
-    
-    .nav-item:hover {
-        transform: translateX(0) scale(1.05);
-    }
-    
-    .nav-item.active::before {
-        left: 0;
-        bottom: -4px;
-        top: auto;
-        height: 4px;
-        width: 100%;
-        animation: navIndicatorHorizontal 0.3s ease forwards;
-    }
-}
-
-/* 导航管理按钮 */
-.nav-management-btn {
-    width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    background-color: rgba(246, 138, 78, 0.1);
-    color: var(--primary-color-dark);
-    border: 1px dashed var(--primary-color);
-    border-radius: var(--radius-sm);
+.group-link {
+    display: block;
+    padding: 8px 15px;
+    color: #666;
+    text-decoration: none;
     font-size: 0.9rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.3s;
 }
 
-.nav-management-btn:hover {
-    background-color: rgba(246, 138, 78, 0.2);
-    transform: translateY(-2px);
+.group-link:hover {
+    background-color: #f8f9fa;
+    color: #333;
 }
 
-/* 编辑模式相关样式 */
-body:not(.edit-mode) .nav-management-btn {
-    display: none !important;
-} 
+.group-link.active {
+    background-color: #e9ecef;
+    color: #007bff;
+    font-weight: 500;
+}
 
-/* 导航拖拽相关样式 */
-body.edit-mode .nav-item[draggable="true"] {
-    cursor: grab;
+/* 编辑模式下的样式 */
+.edit-mode .nav-link,
+.edit-mode .group-link {
+    cursor: move;
     position: relative;
 }
 
-body.edit-mode .nav-item[draggable="true"]::before {
-    content: '≡';
+.edit-mode .nav-link::after,
+.edit-mode .group-link::after {
+    content: '\2807';
     position: absolute;
-    left: 6px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.2rem;
+    right: 10px;
     opacity: 0.5;
-    transition: opacity 0.2s ease;
 }
 
-body.edit-mode .nav-item[draggable="true"]:hover::before {
+.edit-mode .nav-link:hover::after,
+.edit-mode .group-link:hover::after {
     opacity: 1;
 }
 
-body.edit-mode .nav-item.dragging {
-    opacity: 0.8;
-    transform: scale(1.02);
-    z-index: 100;
-    cursor: grabbing;
-    background-color: rgba(246, 138, 78, 0.15);
+/* 分组颜色样式 */
+.group-color-1 { border-left: 3px solid #a8edea; }
+.group-color-2 { border-left: 3px solid #fad961; }
+.group-color-3 { border-left: 3px solid #89f7fe; }
+.group-color-4 { border-left: 3px solid #ff9a9e; }
+.group-color-5 { border-left: 3px solid #f6d365; }
+.group-color-6 { border-left: 3px solid #84fab0; }
+
+/* 管理按钮 */
+.management-buttons {
+    padding: 10px 20px;
+    display: none;
 }
 
-body.edit-mode .nav-item.drag-over {
-    border: 2px dashed var(--primary-color);
-    background-color: rgba(246, 138, 78, 0.1);
+.edit-mode .management-buttons {
+    display: block;
 }
 
-/* 添加箭头指示拖动方向（仅在编辑模式下显示） */
-body.edit-mode .nav-item::after {
-    content: '⇅';
-    display: inline-block;
-    position: absolute;
-    right: 10px;
-    font-size: 1rem;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+.management-btn {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
-body.edit-mode .nav-item:hover::after {
-    opacity: 0.6;
+.management-btn:hover {
+    background-color: #e9ecef;
+    border-color: #ccc;
 }
 
-/* 响应式调整 */
-@media (max-width: 992px) {
-    body.edit-mode .nav-item[draggable="true"]::before {
-        left: 3px;
-        font-size: 1rem;
+/* 拖放相关样式 */
+.dragging {
+    opacity: 0.5;
+}
+
+.drag-over {
+    background-color: #e9ecef;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -200px;
+        top: 60px;
+        bottom: 0;
+        transition: left 0.3s;
+        z-index: 99;
     }
-    
-    body.edit-mode .nav-item::after {
-        right: 5px;
-        font-size: 0.9rem;
+
+    .sidebar.active {
+        left: 0;
     }
-} 
+
+    .sidebar-toggle {
+        display: block;
+    }
+}
