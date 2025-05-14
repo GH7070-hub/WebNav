@@ -1,944 +1,153 @@
-/* --- content.css --- */
-/* 内容区域和卡片相关样式 */
-
-/* 添加中国传统色变量 */
-:root {
-    /* 原有变量保持不变 */
-    
-    /* 中国传统色系 */
-    --zhubiao: #f0c9cf; /* 猪肝色 - 淡雅红粉色 */
-    --xiangyabai: #fffbf0; /* 象牙白 - 温润的白色 */
-    --danqing: #2c9678; /* 蛋青 - 青绿色 */
-    --zhizi: #e9bb1d; /* 栀子 - 橙黄色 */
-    --yanghong: #be002f; /* 洋红 - 深红色 */
-    --yuebai: #e9f1f6; /* 月白 - 淡蓝白色 */
-    --hulan: #0f95b0; /* 湖蓝 - 青蓝色 */
-    --cangqing: #1a3b32; /* 苍青 - 深青色 */
-    --jinhuang: #f2be45; /* 金黄 - 明亮的黄色 */
-    --tenglu: #087fbe; /* 滕蓝 - 鲜艳的蓝色 */
-    --xiangse: #93b5cf; /* 湘色 - 淡雅的蓝色 */
-    --fenghuang: #cf7543; /* 凤凰色 - 褐橙色 */
-}
-
+/* 内容区域样式 */
 .content {
-    flex: 1;
-    padding: 20px var(--spacing-xl) var(--spacing-xl);
-    display: block;
-    position: relative;
-    height: calc(100vh - 80px); /* 减去header高度 */
-    overflow-y: auto; /* 允许垂直滚动 */
-    overflow-x: hidden; /* 禁止水平滚动 */
-}
-
-/* 确保body和html不会滚动 */
-body, html {
-    overflow: hidden;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-/* 卡片组基本样式 */
-.card-group {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing-xl) / 3);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s cubic-bezier(0.215, 0.61, 0.355, 1), 
-                transform 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
-    position: relative;
-    width: 100%;
-    margin-top: calc(0.75rem / 10);
-    padding-top: calc(0.5rem / 10);
-    border-top: 1px solid rgba(246, 138, 78, 0.05);
-}
-
-.card-group.active {
-    opacity: 1;
-    transform: translateY(0);
-    visibility: visible;
-}
-
-/* 搜索状态下卡片组样式 */
-.card-group.search-results {
-    padding-top: calc(0.5rem / 10);
-    margin-top: calc(0.75rem / 10);
-    border-top: 1px dashed rgba(246, 138, 78, 0.1);
-    position: relative;
-    width: 100%;
-}
-
-.card-group.search-results:last-child {
-    border-top: none;
-    margin-top: 0;
-}
-
-/* 业务分组样式 */
-.business-group {
-    border: none;
-    border-radius: 0;
-    padding: 0.5rem 0 0.5rem;
-    position: relative;
-    background-color: transparent;
-    box-shadow: none;
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--spacing-md) / 6);
-    align-items: stretch;
-    transition: all 0.3s ease;
-    width: 100%;
-}
-
-.business-group:hover {
-    box-shadow: none;
-    transform: none;
-}
-
-.business-group-title {
-    position: relative;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    padding: 0;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--primary-color-dark);
-    margin-bottom: 0;
-    display: inline-block;
     flex-grow: 1;
-    z-index: 1; /* 确保文本在正常层级 */
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    align-content: start;
 }
 
-/* 添加毛玻璃效果虚化字体 */
-.business-group-title::before {
-    content: attr(data-text); /* 使用data-text属性获取文本内容 */
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: transparent; /* 使文本透明 */
-    background: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
-    z-index: 2; /* 确保在文本上方 */
-    pointer-events: none; /* 确保不影响鼠标事件 */
-    border-radius: 2px;
-    white-space: nowrap; /* 防止文本换行 */
-    width: auto; /* 宽度自适应文本长度 */
-    height: 100%;
-    padding: 0; /* 移除内边距 */
-    overflow: hidden;
-    font-size: inherit; /* 继承原始文本的字体大小 */
-    font-weight: inherit; /* 继承原始文本的字重 */
-    line-height: inherit; /* 继承原始文本的行高 */
-    font-family: inherit; /* 继承原始文本的字体 */
-}
-
-/* 分割线样式 - 移除 */
-.business-group-title::after {
-    content: none;
-    display: none;
-}
-
-/* 卡片容器 */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-md);
-    width: 100%;
-}
-
-/* 卡片链接样式 */
-.card-link {
-    color: inherit;
-    display: block;
-    width: 210px;
-    transition: all 0.3s ease;
-    margin-bottom: var(--spacing-sm);
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-}
-
-.card-link:hover {
-    transform: translateY(-4px);
-    z-index: 9990; /* 悬停时提高z-index确保提示框不被遮挡 */
-}
-
-/* 添加卡片按钮样式 */
-.add-card-button {
-    width: 210px;
-    height: 75px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed rgba(246, 138, 78, 0.4);
-    border-radius: 8px;
-    background-color: transparent;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: var(--spacing-sm);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
-}
-
-.add-card-button:hover {
-    background-color: transparent;
-    border-color: rgba(246, 138, 78, 0.7);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-}
-
-.add-card-button .plus-icon {
-    font-size: 2rem;
-    margin-right: 8px;
-}
-
-.add-card-button .button-text {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-/* 卡片基本样式 */
+/* 卡片基础样式 */
 .card {
-    width: 100%;
-    min-height: 75px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: calc(var(--spacing-md) * 0.75) calc(var(--spacing-md) * 0.75) calc(var(--spacing-md) * 0.75) calc(var(--spacing-md) * 0.6);
+    background: white;
     border-radius: 8px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
-    overflow: hidden;
-    background-color: transparent;
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    border-left: 3px solid transparent;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 1;
-    --x: center;
-    --y: center;
-}
-
-/* 添加毛玻璃底层效果 */
-.card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 0;
-    opacity: 0.7;
-    pointer-events: none;
-    border-radius: 8px;
-}
-
-/* 添加毛玻璃顶层效果 */
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    z-index: 2;
-    opacity: 0.8; /* 始终显示毛玻璃效果 */
-    pointer-events: none;
-    border-radius: 8px;
-}
-
-/* 当点击卡片时显示更强的毛玻璃效果 */
-.card:active::before {
-    opacity: 0.9;
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* 添加流光效果的伪元素 - 修改为使用新的伪元素 */
-.card .shimmer-effect {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg, 
-        transparent, 
-        rgba(255, 255, 255, 0.5),
-        transparent
-    );
-    transform: skewX(-25deg);
-    z-index: 3; /* 在毛玻璃层上 */
-    opacity: 0;
-    pointer-events: none;
-    transition: none; /* 移除过渡效果使其立即变化 */
-}
-
-/* 卡片激活状态 */
-.card.card-active {
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-    transform: translateY(-3px);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-}
-
-.card.card-active::before {
-    opacity: 0.9;
-    background: transparent;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.card.card-active::after {
-    opacity: 0.8;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.card.card-active .shimmer-effect {
-    animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        left: -150%;
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.5;
-    }
-    35% {
-        opacity: 0.3;
-    }
-    100% {
-        left: 100%;
-        opacity: 0;
-    }
 }
 
 .card:hover {
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
-    transform: translateY(-3px) scale(1.01);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.65);
-}
-
-.card:hover::before {
-    opacity: 0.9;
-    background: transparent;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-}
-
-.card:hover::after {
-    opacity: 0.85;
-    background: rgba(255, 255, 255, 0.25);
-}
-
-.card:hover .shimmer-effect {
-    animation: cardShimmer 1.5s ease-in-out infinite;
-    animation-delay: 0s; /* 移除任何延迟 */
-    opacity: 1;
-}
-
-/* 确保卡片内容在渐变层之上但在毛玻璃效果之下 */
-.card-content, .card-logo {
-    position: relative;
-    z-index: 1;
-}
-
-/* 卡片删除和编辑按钮要在毛玻璃层之上 */
-.card-delete, .card-edit {
-    z-index: 3;
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* 卡片样式变体 */
-.card.card1 { 
-    border-left: 4px solid rgba(207, 117, 67, 0.9); /* 凤凰色 fenghuang */
-    background-color: transparent;
-    box-shadow: 0 8px 32px 0 rgba(207, 117, 67, 0.18);
-}
-.card.card2 { 
-    border-left: 4px solid rgba(242, 190, 69, 0.9); /* 金黄 jinhuang */
-    background-color: transparent;
-    box-shadow: 0 8px 32px 0 rgba(242, 190, 69, 0.18);
-}
-.card.card3 { 
-    border-left: 4px solid rgba(190, 0, 47, 0.9); /* 洋红 yanghong */
-    background-color: transparent;
-    box-shadow: 0 8px 32px 0 rgba(190, 0, 47, 0.18);
-}
-.card.card4 { 
-    border-left: 4px solid rgba(44, 150, 120, 0.9); /* 蛋青 danqing */
-    background-color: transparent;
-    box-shadow: 0 8px 32px 0 rgba(44, 150, 120, 0.18);
-}
-.card.card5 { 
-    border-left: 4px solid rgba(15, 149, 176, 0.9); /* 湖蓝 hulan */
-    background-color: transparent;
-    box-shadow: 0 8px 32px 0 rgba(15, 149, 176, 0.18);
+.card.card1 {
+    background: linear-gradient(135deg, #fad961, #f76b1c);
+    color: white;
 }
 
-/* 卡片标题 */
+.card.card2 {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    color: white;
+}
+
+.card.card3 {
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: white;
+}
+
+.card.card4 {
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    color: #333;
+}
+
+.card.card5 {
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    color: white;
+}
+
+/* 卡片内容样式 */
+.card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
 .card-title {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: #000; /* 更深的文字颜色 */
-    text-align: left;
-    margin-bottom: 4px;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
-    max-width: calc(100% - 10px);
-    text-shadow: 0 0 2px rgba(255, 255, 255, 1); /* 增强文字阴影 */
-}
-
-/* 卡片描述 */
-.card-description {
-    font-size: 0.75rem;
-    color: #222; /* 更深的文字颜色 */
-    text-align: left;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
-    max-width: calc(100% - 10px);
-    text-shadow: 0 0 2px rgba(255, 255, 255, 1); /* 增强文字阴影 */
-}
-
-/* 卡片悬停时标题和描述的样式 */
-.card:hover .card-title,
-.card:hover .card-description {
-    text-shadow: 0 0 3px rgba(255, 255, 255, 1);
-}
-
-/* 卡片悬浮提示样式 */
-.card-tooltip {
-    position: absolute;
-    left: 0;
-    top: 0;
-    transform: translateX(-50%);
-    background-color: rgba(50, 50, 50, 0.95);
-    color: #fff;
-    padding: 10px 15px;
-    border-radius: 6px;
-    font-size: 0.8rem;
-    min-width: 200px;
-    max-width: 250px;
-    z-index: 9999;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease;
-    word-wrap: break-word;
-    line-height: 1.4;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    pointer-events: none;
-}
-
-.card-tooltip::after {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 0 8px 8px 8px;
-    border-style: solid;
-    border-color: transparent transparent rgba(50, 50, 50, 0.95) transparent;
-}
-
-.card-tooltip strong {
-    display: block;
-    font-size: 0.9rem;
-    margin-bottom: 6px;
-    color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 6px;
-}
-
-.card-tooltip span {
-    display: block;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
-    padding-top: 2px;
-    white-space: normal;
-    overflow: visible;
-}
-
-.card-link:hover .card-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* 卡片LOGO样式 */
-.card-logo {
-    width: 35px;
-    height: 35px;
-    min-width: 35px;
-    border-radius: 40%;
-    background: rgba(255,255,255,1); /* 完全不透明的背景 */
-    color: var(--primary-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.05rem;
-    flex-shrink: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* 增强阴影 */
-    transition: all 0.3s ease;
-    overflow: hidden;
-    z-index: 3; /* 确保logo在毛玻璃层上 */
-    border: 1px solid rgba(255, 255, 255, 1);
-}
-
-.card-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    filter: contrast(1.2) brightness(1.05); /* 更高的对比度和亮度 */
-}
-
-.card:hover .card-logo {
-    transform: scale(1.1);
-    box-shadow: 0 3px 10px rgba(246, 138, 78, 0.2);
-    z-index: 4; /* 悬停时确保在最上层 */
-}
-
-/* 响应式设计优化 */
-@media (max-width: 1200px) {
-    .card-link {
-        width: calc(33.33% - var(--spacing-md));
-    }
-    
-    .add-card-button {
-        width: calc(33.33% - var(--spacing-md));
-    }
-}
-
-@media (max-width: 992px) {
-    .content {
-        order: 1;
-        padding: var(--spacing-md);
-    }
-    .card-link {
-        width: calc(50% - var(--spacing-md));
-    }
-    
-    .add-card-button {
-        width: calc(50% - var(--spacing-md));
-    }
-}
-
-@media (max-width: 768px) {
-    .card-link {
-        width: 100%;
-    }
-    
-    .add-card-button {
-        width: 100%;
-    }
-}
-
-/* 气泡提示样式 */
-.tooltip {
-    position: fixed;
-    background-color: rgba(50, 50, 50, 0.95);
-    color: #fff;
-    padding: 12px 15px;
-    border-radius: 3px;
-    font-size: 0.9rem;
-    max-width: 300px;
-    z-index: 1000;
-    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    word-wrap: break-word;
-    line-height: 1.4;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transform: translateY(5px);
-}
-
-.tooltip.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 移除所有三角形指示器 */
-.tooltip::after {
-    display: none;
-}
-
-.tooltip.top::after {
-    display: none;
-}
-
-.tooltip.left::after {
-    display: none;
-}
-
-.tooltip.right::after {
-    display: none;
-}
-
-/* 工具提示内部样式 */
-.tooltip strong {
-    display: block;
-    font-size: 1rem;
-    margin-bottom: 6px;
-    color: #fff;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    padding-bottom: 6px;
-}
-
-.tooltip span {
-    display: block;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.5;
-    padding-top: 2px;
-}
-
-/* 分组管理容器 */
-.group-management-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: var(--spacing-md);
-    padding: 0 var(--spacing-md);
-}
-
-.add-group-btn {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: var(--radius-sm);
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.add-group-btn:hover {
-    background-color: var(--primary-color-dark);
-    transform: translateY(-2px);
-}
-
-/* 业务分组标题容器 */
-.business-group-title-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: calc(var(--spacing-sm) / 3);
-}
-
-.business-group-title {
-    position: relative;
-    top: 0;
-    left: 0;
-    background-color: transparent;
-    padding: 0;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    color: var(--primary-color-dark);
-    margin-bottom: 0;
-    display: inline-block;
-    flex-grow: 1;
+    margin: 0;
 }
 
-/* 移除各种颜色分组的分割线 */
-.business-group-title.group-color-1::after,
-.business-group-title.group-color-2::after,
-.business-group-title.group-color-3::after,
-.business-group-title.group-color-4::after,
-.business-group-title.group-color-5::after,
-.business-group-title.group-color-6::after {
-    content: none;
-    display: none;
-    background: none;
+.card-description {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 15px;
+    line-height: 1.4;
 }
 
-/* 分组编辑和删除按钮 */
-.btn-edit-group,
-.btn-delete-group {
-    background-color: transparent;
-    border: none;
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 4px 8px;
-    border-radius: var(--radius-sm);
-    transition: all 0.2s ease;
+.card-footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
 }
 
-.btn-edit-group {
-    color: var(--primary-color);
+.card-link {
+    color: inherit;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 0.9rem;
+    transition: background 0.3s;
 }
 
-.btn-delete-group {
-    color: var(--danger-color);
+.card-link:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.btn-edit-group:hover {
-    background-color: rgba(246, 138, 78, 0.1);
+/* 编辑模式下的卡片样式 */
+.edit-mode .card {
+    cursor: move;
 }
 
-.btn-delete-group:hover {
-    background-color: rgba(220, 53, 69, 0.1);
-}
-
-/* 拖拽相关样式 */
-.card-link[draggable="true"] {
-    cursor: grab;
-}
-
-.card-link.dragging {
-    opacity: 0.8;
-    transform: scale(1.03);
-    z-index: 100;
-    cursor: grabbing;
-}
-
-.card-container.drag-over {
-    background-color: rgba(246, 138, 78, 0.1);
-    border-radius: 8px;
-    transition: background-color 0.2s ease;
-}
-
-body.edit-mode .card-link:hover {
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transform: translateY(-4px);
-    position: relative;
-}
-
-/* 编辑模式提示 */
-body.edit-mode .card-container::before {
+.edit-mode .card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px dashed rgba(246, 138, 78, 0.2);
+    right: 0;
+    bottom: 0;
+    border: 2px dashed rgba(0, 0, 0, 0.2);
     border-radius: 8px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
     pointer-events: none;
-    box-sizing: border-box;
-    z-index: 1;
 }
 
-body.edit-mode .card-container:hover::before {
-    opacity: 1;
+.edit-mode .card:hover::before {
+    border-color: rgba(0, 0, 0, 0.4);
 }
 
-/* 编辑模式相关样式 */
-body:not(.edit-mode) .add-card-button,
-body:not(.edit-mode) .btn-edit-group,
-body:not(.edit-mode) .btn-delete-group,
-body:not(.edit-mode) .card-delete,
-body:not(.edit-mode) .card-edit,
-body:not(.edit-mode) .group-management-container {
-    display: none !important;
-}
-
-/* 搜索高亮样式 */
-.search-highlight {
-    background-color: rgba(190, 0, 47, 0.2); /* 洋红 yanghong */
-    padding: 0 2px;
-    border-radius: 2px;
-    font-weight: bold;
-}
-
-/* 卡片编辑按钮 */
-.card-edit {
+.card-actions {
+    display: none;
     position: absolute;
-    bottom: 8px;
-    right: 8px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #4ca9e1;
+    top: 10px;
+    right: 10px;
+    gap: 5px;
+}
+
+.edit-mode .card-actions {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
+}
+
+.card-action-btn {
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 4px;
+    color: inherit;
     cursor: pointer;
-    opacity: 0;
-    transition: all 0.2s ease;
-    z-index: 20;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+    transition: background 0.3s;
 }
 
-.card-edit:hover {
-    background-color: #4ca9e1;
-    color: white;
-    transform: scale(1.1);
+.card-action-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
-.card:hover .card-edit {
-    opacity: 1;
+.card-action-btn.delete {
+    background: rgba(220, 53, 69, 0.2);
 }
 
-/* 分组标题颜色样式 */
-.business-group-title.group-color-1 {
-    color: var(--danqing); /* 蛋青 - 青绿色 */
+.card-action-btn.delete:hover {
+    background: rgba(220, 53, 69, 0.3);
 }
-
-.business-group-title.group-color-1::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-2 {
-    color: var(--fenghuang); /* 凤凰色 - 褐橙色 */
-}
-
-.business-group-title.group-color-2::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-3 {
-    color: var(--tenglu); /* 滕蓝 - 蓝色 */
-}
-
-.business-group-title.group-color-3::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-4 {
-    color: var(--yanghong); /* 洋红 - 深红色 */
-}
-
-.business-group-title.group-color-4::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-5 {
-    color: var(--jinhuang); /* 金黄 - 黄色 */
-}
-
-.business-group-title.group-color-5::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-6 {
-    color: var(--hulan); /* 湖蓝 - 青蓝色 */
-}
-
-.business-group-title.group-color-6::before {
-    content: attr(data-text);
-    background: transparent;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
-.business-group-title.group-color-1::after {
-    background: none;
-}
-
-.business-group-title.group-color-2::after {
-    background: none;
-}
-
-.business-group-title.group-color-3::after {
-    background: none;
-}
-
-.business-group-title.group-color-4::after {
-    background: none;
-}
-
-.business-group-title.group-color-5::after {
-    background: none;
-}
-
-.business-group-title.group-color-6::after {
-    background: none;
-}
-
-/* 卡片删除按钮 */
-.card-delete {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #ff6b6b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    cursor: pointer;
-    opacity: 0;
-    transition: all 0.2s ease;
-    z-index: 20;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.card-delete:hover {
-    background-color: #ff6b6b;
-    color: white;
-    transform: scale(1.1);
-}
-
-.card:hover .card-delete {
-    opacity: 1;
-}
-
-/* 卡片内容区域 */
-.card-content {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    margin-left: calc(var(--spacing-md) / 2);
-    padding-right: 20px;
-    width: calc(100% - 40px);
-    box-sizing: border-box;
-}
-
-@keyframes cardShimmer {
-    0% {
-        left: -100%;
-    }
-    100% {
-        left: 200%;
-    }
-} 
