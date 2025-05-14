@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>常用网站合集</title>
+    <link rel="icon" href="images/web.png" type="image/png">
+    <link rel="shortcut icon" href="images/web.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/web.png">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/sidebar.css">
+    <link rel="stylesheet" href="styles/content.css">
+    <link rel="stylesheet" href="styles/modal.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="images/web.png" alt="Logo" class="header-logo">
+            <div class="title-container">
+                <h1>常用网站合集</h1>
+                <button id="edit-title-btn" class="edit-title-btn">&#9998;</button>
+            </div>
+        </div>
+        <div class="search-container">
+            <div class="search-input-row">
+                <input type="search" class="search-box" placeholder="搜索常用网站...">
+                <button id="search-button" class="search-button">搜索</button>
+            </div>
+        </div>
+        <div class="edit-mode-toggle-area"></div>
+        <div class="edit-mode-toggle">
+            <label class="toggle-switch">
+                <input type="checkbox" id="edit-mode-toggle">
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">编辑模式</span>
+        </div>
+        <div class="buttons-container-area"></div>
+        <div class="buttons-container">
+            <div class="buttons-group data-buttons">
+                <button class="export-btn">
+                    <span>导出数据</span>
+                </button>
+                <button class="import-btn">
+                    <span>导入数据</span>
+                </button>
+            </div>
+            <div class="buttons-group chrome-buttons">
+                <button class="chrome-import-btn">
+                    <span>导入收藏夹</span>
+                </button>
+            </div>
+            <div class="buttons-group bg-buttons">
+                <button class="upload-bg-btn">
+                    <span>上传背景</span>
+                </button>
+                <button id="clear-cache-btn" class="clear-cache-btn">
+                    <span>清除缓存</span>
+                </button>
+            </div>
+        </div>
+        <div id="renjian-quote" class="renjian-quote"></div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar" id="nav-sidebar">
+        </nav>
+        <div class="content" id="content-area">
+        </div>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
