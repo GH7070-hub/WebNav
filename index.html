@@ -24,8 +24,10 @@
             </div>
         </div>
         <div class="search-container">
-            <input type="search" class="search-box" placeholder="搜索常用网站...">
-            <button id="search-button" class="search-button">搜索</button>
+            <div class="search-input-row">
+                <input type="search" class="search-box" placeholder="搜索常用网站...">
+                <button id="search-button" class="search-button">搜索</button>
+            </div>
         </div>
         <div class="edit-mode-toggle-area"></div>
         <div class="edit-mode-toggle">
@@ -59,6 +61,7 @@
                 </button>
             </div>
         </div>
+        <div id="renjian-quote" class="renjian-quote"></div>
     </header>
 
     <div class="container">
@@ -374,7 +377,37 @@
         </div>
     </div>
     
-    <!-- 引入JavaScript文件 -->
+    <!-- 导入scripts -->
     <script type="module" src="scripts/main.js"></script>
+    
+    <!-- 导入JQ -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+
+    <script>
+        // 人间API调用
+        $.ajax({
+            url: 'https://v2.xxapi.cn/api/renjian',
+            type: 'get',
+            beforeSend: function () {
+                //请求中执行的代码
+                document.getElementById('renjian-quote').innerHTML = '加载中...';
+            },
+            complete: function () {
+                //请求完成执行的代码
+            },
+            error: function () {
+                //请求失败执行的代码
+                document.getElementById('renjian-quote').innerHTML = '人间有你，岁月无恙。';
+            },
+            success: function (res) {
+                // 状态码 200 表示请求成功
+                if (res.code === 200) {
+                    document.getElementById('renjian-quote').innerHTML = res.data;
+                } else {
+                    document.getElementById('renjian-quote').innerHTML = '人间有你，岁月无恙。';
+                }
+            }
+        });
+    </script>
 </body>
 </html>

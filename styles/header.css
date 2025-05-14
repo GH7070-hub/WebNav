@@ -15,6 +15,8 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    padding-bottom: calc(var(--spacing-md) + 20px);
 }
 
 /* Logo容器样式 */
@@ -77,12 +79,20 @@
 /* 搜索区域样式 */
 .search-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.7rem;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 50%;
+    width: 85%;
+    justify-content: center;
+}
+
+.search-input-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 70%;
     justify-content: center;
 }
 
@@ -193,6 +203,7 @@
         flex-direction: column;
         gap: var(--spacing-sm);
         text-align: center;
+        padding-bottom: calc(var(--spacing-sm) + 20px);
     }
     
     .logo-container {
@@ -211,10 +222,14 @@
     .search-container {
         position: static;
         transform: none;
-        flex-direction: column;
         width: 100%;
-        gap: 0.5rem;
         margin: 10px 0;
+    }
+    
+    .search-input-row {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
     }
     
     .search-button {
@@ -235,6 +250,19 @@
     
     .search-box:focus {
         width: 100%;
+    }
+    
+    .renjian-quote {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        bottom: 0;
+        font-size: 0.75rem;
+        padding: 0 15px;
+        background-color: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
     }
     
     .edit-mode-toggle {
@@ -769,4 +797,39 @@ body.edit-mode .clear-cache-btn {
 
 .clear-cache-btn:hover::before {
     box-shadow: inset 0 0 0 10em #4e9af6;
+}
+
+/* 人间名言样式 */
+.renjian-quote {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-color-dark);
+    margin: 0;
+    padding: 0 25px;
+    border-radius: 0;
+    background-color: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    transition: all 0.3s ease;
+    font-style: italic;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+}
+
+.renjian-quote:hover {
+    transform: translateY(-1px);
 } 
