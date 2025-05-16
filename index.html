@@ -61,7 +61,7 @@
                 </button>
             </div>
         </div>
-        <div id="renjian-quote" class="renjian-quote"></div>
+        <div id="renjian-quote" class="renjian-quote" style="cursor: pointer;"></div>
     </header>
 
     <div class="container">
@@ -394,29 +394,41 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
 
     <script>
-        // 人间API调用
-        $.ajax({
-            url: 'https://v2.xxapi.cn/api/renjian',
-            type: 'get',
-            beforeSend: function () {
-                //请求中执行的代码
-                document.getElementById('renjian-quote').innerHTML = '加载中...';
-            },
-            complete: function () {
-                //请求完成执行的代码
-            },
-            error: function () {
-                //请求失败执行的代码
-                document.getElementById('renjian-quote').innerHTML = '人间有你，岁月无恙。';
-            },
-            success: function (res) {
-                // 状态码 200 表示请求成功
-                if (res.code === 200) {
-                    document.getElementById('renjian-quote').innerHTML = res.data;
-                } else {
+        // 封装人间API调用函数
+        function fetchRenjianQuote() {
+            $.ajax({
+                url: 'https://v2.xxapi.cn/api/renjian',
+                type: 'get',
+                beforeSend: function () {
+                    //请求中执行的代码
+                    document.getElementById('renjian-quote').innerHTML = '加载中...';
+                },
+                complete: function () {
+                    //请求完成执行的代码
+                },
+                error: function () {
+                    //请求失败执行的代码
                     document.getElementById('renjian-quote').innerHTML = '人间有你，岁月无恙。';
+                },
+                success: function (res) {
+                    // 状态码 200 表示请求成功
+                    if (res.code === 200) {
+                        document.getElementById('renjian-quote').innerHTML = res.data;
+                    } else {
+                        document.getElementById('renjian-quote').innerHTML = '人间有你，岁月无恙。';
+                    }
                 }
-            }
+            });
+        }
+
+        // 页面加载时获取一次
+        $(document).ready(function() {
+            fetchRenjianQuote();
+            
+            // 添加点击事件监听器
+            $('#renjian-quote').on('click', function() {
+                fetchRenjianQuote();
+            });
         });
     </script>
 </body>
